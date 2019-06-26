@@ -13,7 +13,7 @@ class App extends Component {
     super();
     this.state = {
       setColorIdx: 0,
-      guesses: [this.getNewGuess()],
+      guesses: [this.getNewGuess(), this.getNewGuess()],
       code: this.genCode()
 
     }
@@ -21,7 +21,8 @@ class App extends Component {
 
   getNewGuess() {
     return {
-      code: [null, null, null, null],
+      // code: [null, null, null, null],
+      code: [3, 2, 1, 0],
       score: {
         perfect: 0,
         almost: 0
