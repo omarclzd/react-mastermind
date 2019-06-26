@@ -13,9 +13,19 @@ class App extends Component {
     super();
     this.state = {
       setColorIdx: 0,
-      guesses: [],
+      guesses: [this.getNewGuess()],
       code: this.genCode()
 
+    }
+  }
+
+  getNewGuess() {
+    return {
+      code: [null, null, null, null],
+      score: {
+        perfect: 0,
+        almost: 0
+      }
     }
   }
 
@@ -37,9 +47,16 @@ class App extends Component {
         Selected color: {colors[this.state.setColorIdx]}
         <header className="App-header">React Mastermind</header>
         <div className="flex-h">
-          <GameBoard />
+          <GameBoard 
+          colors={colors}
+          guesses={this.state.guesses}
+          
+          />
           <div>
-            <ColorPicker colors={colors} />
+            <ColorPicker 
+            colors={colors}
+            setColorIdx={this.state.setColorIdx}
+             />
             <GameTimer />
             <NewGameButton />
           </div>
