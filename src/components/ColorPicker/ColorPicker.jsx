@@ -1,8 +1,10 @@
 import React from 'react'
 
 const ColorPicker = props => (
-  <div className='component'>
-    ColorPicker
+  <div>
+    {props.colors.map(color => 
+      <button key={color}>{color}</button>
+      )}
   </div>
 )
 
