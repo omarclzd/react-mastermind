@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import GameBoard from './components/GameBoard/GameBoard'
 
 class App extends Component {
 
@@ -9,6 +10,7 @@ class App extends Component {
         <header className="App-header">
           React Mastermind
         </header>
+        <GameBoard />
       </div>
     );
   }
