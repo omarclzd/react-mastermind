@@ -9,15 +9,14 @@ const colors = ['#7CCCE5', '#FDE47F', '#E04644', '#B576AD'];
 
 class App extends Component {
 
-  constructor() {
-    super();
-    this.state = {
+  
+    state = {
       setColorIdx: 0,
       guesses: [this.getNewGuess(), this.getNewGuess()],
       code: this.genCode()
 
     }
-  }
+  
 
   getNewGuess() {
     return {
@@ -32,6 +31,12 @@ class App extends Component {
 
   genCode() {
     return new Array(4).fill().map(() => Math.floor(Math.random() * colors.length)); 
+  }
+
+  getWinTries() {
+    // if winner, return num guesses, otherwise 0 (no winner)
+    let lastGuess = this.state.guesses.length - 1;
+    return this.state.guesses[lastGuess].score.perfect === 4 ? lastGuess + 1 : 0;
   }
 
   render() {
