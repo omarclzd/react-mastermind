@@ -1,8 +1,8 @@
 import React from 'react'
 
 const NewGameButton = props => (
-  <button>
-    NewGameButton
+  <button className="btn btn-default">
+    NewGame
   </button>
 )
 
