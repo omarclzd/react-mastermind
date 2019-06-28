@@ -12,16 +12,15 @@ class App extends Component {
   
     state = {
       setColorIdx: 0,
-      guesses: [this.getNewGuess(), this.getNewGuess()],
-      code: this.genCode()
+      guesses: [this.getNewGuess()],
+      code: this.genCode(),
 
     }
   
 
   getNewGuess() {
     return {
-      // code: [null, null, null, null],
-      code: [3, 2, 1, 0],
+      code: [null, null, null, null],
       score: {
         perfect: 0,
         almost: 0
@@ -40,35 +39,27 @@ class App extends Component {
   }
 
   render() {
+    let winTries = this.getWinTries();
     return (
       <div className="App">
-        <button onClick={() => this.setState((state) => {
-          return {
-
-            setColorIdx: ++state.setColorIdx % 4
-          }
-        })}>
-          Next Color
-        </button>
-        Selected color: {colors[this.state.setColorIdx]}
-        <header className="App-header">React Mastermind</header>
-        <div className="flex-h">
-          <GameBoard 
-          colors={colors}
-          guesses={this.state.guesses}
-          
-          />
-          <div>
-            <ColorPicker 
+        <header className='App-header-footer'>R E A C T &nbsp;&nbsp;&nbsp;  M A S T E R M I N D</header>
+        <div className="flex-h align-flex-end">
+          <GameBoard
             colors={colors}
-            setColorIdx={this.state.setColorIdx}
-             />
+            guesses={this.state.guesses}
+          />
+          <div className='App-controls'>
+            <ColorPicker
+              colors={colors}
+              selColorIdx={this.state.selColorIdx}
+            />
             <GameTimer />
             <NewGameButton />
           </div>
         </div>
-        <footer>footer</footer>
-
+        <footer className='App-header-footer'>
+          {(winTries ? `You Won in ${winTries} Guesses!` : 'Good Luck!')}
+        </footer>
       </div>
     );
   }
