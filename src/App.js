@@ -10,12 +10,21 @@ const colors = ['#7CCCE5', '#FDE47F', '#E04644', '#B576AD'];
 class App extends Component {
 
   
-    state = {
-      setColorIdx: 0,
+  constructor() {
+    // super must be called before accessing 'this'
+    super();
+    // state is an object that holds information
+    // in its properties
+    this.state = {
+      selColorIdx: 0,
       guesses: [this.getNewGuess()],
-      code: this.genCode(),
+      code: this.genCode()
+    };
+    // Explicit binding to this component
+    
+  }
 
-    }
+  
   
 
   getNewGuess() {
@@ -38,6 +47,13 @@ class App extends Component {
     return this.state.guesses[lastGuess].score.perfect === 4 ? lastGuess + 1 : 0;
   }
 
+// Event Handlers   
+
+  handleColorSelection = (colorIdx) => {
+    this.setState({selColorIdx: colorIdx})
+  };
+
+  
   render() {
     let winTries = this.getWinTries();
     return (
@@ -52,6 +68,7 @@ class App extends Component {
             <ColorPicker
               colors={colors}
               selColorIdx={this.state.selColorIdx}
+              handleColorSelection={this.handleColorSelection}
             />
             <GameTimer />
             <NewGameButton />
