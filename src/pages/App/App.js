@@ -12,7 +12,6 @@ const colors = {
 
 class App extends Component {
   constructor() {
-    console.log("App: constructortDidMount");
     super();
     this.state = { ...this.getInitialState(), difficulty: "Easy" };
   }
@@ -22,7 +21,8 @@ class App extends Component {
       selColorIdx: 0,
       guesses: [this.getNewGuess()],
       code: this.genCode(),
-      elapsedTime: 0
+      elapsedTime: 0,
+      isTiming: true
     };
   }
 
@@ -51,6 +51,10 @@ class App extends Component {
       ? lastGuess + 1
       : 0;
   }
+
+  handleTimerUpdate = () => {
+    this.setState(curState => ({ elapsedTime: ++curState.elapsedTime }));
+  };
 
   handleDifficultyChange = level => {
     this.setState({ difficulty: level });
@@ -99,9 +103,7 @@ class App extends Component {
     guessCodeCopy.forEach((code, idx) => {
       if (secretCodeCopy[idx] === code) {
         perfect++;
-        // Ensure same choice is not matched again
-        // by updating both elements in the "working"
-        // arrays to null
+
         guessCodeCopy[idx] = secretCodeCopy[idx] = null;
       }
     });
@@ -138,16 +140,12 @@ class App extends Component {
 
     // Finally, update the state with the NEW guesses array
     this.setState({
-      guesses: guessesCopy
+      guesses: guessesCopy,
+      isTiming: perfect !== 4
     });
   };
 
-  componentDidMount() {
-    console.log("App: componentDidMount");
-  }
-
   render() {
-    console.log("App: renderDidMount");
     let winTries = this.getWinTries();
     return (
       <div>
@@ -165,11 +163,12 @@ class App extends Component {
                 selColorIdx={this.state.selColorIdx}
                 guesses={this.state.guesses}
                 elapsedTime={this.state.elapsedTime}
-                handleTimerUpdate={this.handleTimerUpdate}
+                isTiming={this.state.isTiming}
                 handleColorSelection={this.handleColorSelection}
                 handleNewGameClick={this.handleNewGameClick}
                 handlePegClick={this.handlePegClick}
                 handleScoreClick={this.handleScoreClick}
+                handleTimerUpdate={this.handleTimerUpdate}
               />
             )}
           />
